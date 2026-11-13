@@ -1,0 +1,407 @@
+@import "tailwindcss";
+
+/* Class based dark mode: <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   1. DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Single source of truth for the whole app. Every colour, radius, shadow,
+   type step and motion curve used by the UI is declared here. Change a value
+   in this block and the entire product follows.
+
+   Palette
+     light  surface #FAFAFA  cards #FFFFFF
+     dark   surface #0B0B0F  cards #15151B
+     accent deep navy #001F3F (primary actions / active / unread only)
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* -- Surfaces ---------------------------------------------------------- */
+  --c-surface: #fafafa;
+  --c-elevated: #ffffff;
+  --c-sunken: #f4f4f5;
+  --c-muted: #eeeef1;
+
+  /* -- Ink --------------------------------------------------------------- */
+  --c-ink: #09090b;
+  --c-ink-soft: #52525b;
+  --c-ink-mute: #8b8b96;
+
+  /* -- Lines ------------------------------------------------------------- */
+  --c-line: rgb(9 9 11 / 0.09);
+  --c-line-soft: rgb(9 9 11 / 0.05);
+
+  /* -- Accent ------------------------------------------------------------ */
+  --c-accent: #001f3f;
+  --c-accent-strong: #002c56;
+  --c-accent-2: #1a5fa5;
+  --c-accent-soft: rgb(0 31 63 / 0.08);
+  --c-on-accent: #ffffff;
+
+  /* -- Brand (theme independent) ----------------------------------------- */
+  --c-brand: #001f3f;
+  --c-brand-2: #1a5fa5;
+  --c-on-brand: #ffffff;
+
+  /* -- Status ------------------------------------------------------------ */
+  --c-danger: #dc2626;
+  --c-danger-soft: rgb(220 38 38 / 0.08);
+  --c-on-danger: #ffffff;
+  --c-success: #15803d;
+  --c-success-soft: rgb(21 128 61 / 0.1);
+
+  /* -- Translucent layers (top bar, bottom nav, modals, dropdowns) ------- */
+  --c-glass: rgb(255 255 255 / 0.72);
+  --c-glass-strong: rgb(255 255 255 / 0.92);
+
+  /* -- Soft layered elevation ------------------------------------------- */
+  --sh-card: 0 1px 2px rgb(9 9 11 / 0.04), 0 12px 28px -20px rgb(9 9 11 / 0.28);
+  --sh-card-hover: 0 2px 4px rgb(9 9 11 / 0.05), 0 22px 44px -24px rgb(9 9 11 / 0.34);
+  --sh-float: 0 12px 32px -12px rgb(9 9 11 / 0.3);
+  --sh-pop: 0 20px 50px -16px rgb(9 9 11 / 0.36);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* -- Surfaces ---------------------------------------------------------- */
+  --c-surface: #0b0b0f;
+  --c-elevated: #15151b;
+  --c-sunken: #101014;
+  --c-muted: #1d1d24;
+
+  /* -- Ink --------------------------------------------------------------- */
+  --c-ink: #f4f4f5;
+  --c-ink-soft: #a1a1aa;
+  --c-ink-mute: #71717a;
+
+  /* -- Lines ------------------------------------------------------------- */
+  --c-line: rgb(255 255 255 / 0.11);
+  --c-line-soft: rgb(255 255 255 / 0.06);
+
+  /* -- Accent ------------------------------------------------------------ */
+  --c-accent: #6aa6dc;
+  --c-accent-strong: #8dbde8;
+  --c-accent-2: #4a86c8;
+  --c-accent-soft: rgb(106 166 220 / 0.16);
+  --c-on-accent: #00162e;
+
+  /* -- Brand (theme independent) ----------------------------------------- */
+  --c-brand: #001f3f;
+  --c-brand-2: #1a5fa5;
+  --c-on-brand: #ffffff;
+
+  /* -- Status ------------------------------------------------------------ */
+  --c-danger: #f87171;
+  --c-danger-soft: rgb(248 113 113 / 0.12);
+  --c-on-danger: #ffffff;
+  --c-success: #4ade80;
+  --c-success-soft: rgb(74 222 128 / 0.12);
+
+  /* -- Translucent layers ------------------------------------------------ */
+  --c-glass: rgb(21 21 27 / 0.7);
+  --c-glass-strong: rgb(21 21 27 / 0.92);
+
+  /* -- Soft layered elevation ------------------------------------------- */
+  --sh-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 28px -20px rgb(0 0 0 / 0.72);
+  --sh-card-hover: 0 2px 4px rgb(0 0 0 / 0.45), 0 22px 44px -24px rgb(0 0 0 / 0.8);
+  --sh-float: 0 12px 32px -10px rgb(0 0 0 / 0.72);
+  --sh-pop: 0 20px 50px -14px rgb(0 0 0 / 0.8);
+}
+
+/* Semantic aliases -> Tailwind utilities (bg-surface, text-ink, ring-line…) */
+@theme inline {
+  --color-surface: var(--c-surface);
+  --color-elevated: var(--c-elevated);
+  --color-sunken: var(--c-sunken);
+  --color-muted: var(--c-muted);
+
+  --color-ink: var(--c-ink);
+  --color-ink-soft: var(--c-ink-soft);
+  --color-ink-mute: var(--c-ink-mute);
+
+  --color-line: var(--c-line);
+  --color-line-soft: var(--c-line-soft);
+
+  --color-accent: var(--c-accent);
+  --color-accent-strong: var(--c-accent-strong);
+  --color-accent-2: var(--c-accent-2);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-on-accent: var(--c-on-accent);
+
+  /* Brand identity — identical in both themes */
+  --color-brand: var(--c-brand);
+  --color-brand-2: var(--c-brand-2);
+  --color-on-brand: var(--c-on-brand);
+
+  --color-danger: var(--c-danger);
+  --color-danger-soft: var(--c-danger-soft);
+  --color-on-danger: var(--c-on-danger);
+  --color-success: var(--c-success);
+  --color-success-soft: var(--c-success-soft);
+
+  /* Translucent layers for top bar / bottom nav / modals / dropdowns */
+  --color-glass: var(--c-glass);
+  --color-glass-strong: var(--c-glass-strong);
+
+  --shadow-card: var(--sh-card);
+  --shadow-card-hover: var(--sh-card-hover);
+  --shadow-float: var(--sh-float);
+  --shadow-pop: var(--sh-pop);
+}
+
+@theme {
+  /* -- Typography: one geometric sans, weights 400 + 600 only ------------ */
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-2xs: 11px;
+  --text-2xs--line-height: 1.45;
+  --text-xs: 12.5px;
+  --text-xs--line-height: 1.5;
+  --text-sm: 14px;
+  --text-sm--line-height: 1.55;
+  --text-base: 15px;
+  --text-base--line-height: 1.65;
+  --text-lg: 17px;
+  --text-lg--line-height: 1.4;
+  --text-xl: 21px;
+  --text-xl--line-height: 1.3;
+  --text-2xl: 27px;
+  --text-2xl--line-height: 1.2;
+
+  /* -- Shape ------------------------------------------------------------- */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-pill: 999px;
+
+  /* -- Motion: 150-250ms ease-out, spring on reactions ------------------- */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-pop: pop 380ms var(--ease-spring);
+  --animate-rise: rise 260ms var(--ease-soft) both;
+  --animate-fade-in: fade-in 220ms var(--ease-soft) both;
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.32);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* ==========================================================================
+   2. GLOBAL STYLES
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-surface text-ink antialiased;
+    font-feature-settings: "cv11", "ss01", "ss03";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--c-accent-soft);
+    color: var(--c-ink);
+  }
+
+  /* Visible, consistent focus ring for keyboard users only. */
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  textarea {
+    field-sizing: content;
+  }
+}
+
+@layer components {
+  /* -- Surfaces ---------------------------------------------------------- */
+  .card {
+    @apply rounded-2xl bg-elevated shadow-card ring-1 ring-line-soft;
+  }
+
+  .card-hover {
+    @apply transition-[box-shadow,transform] duration-200 ease-soft hover:shadow-card-hover;
+  }
+
+  .glass {
+    @apply bg-glass backdrop-blur-xl backdrop-saturate-150;
+  }
+
+  /* -- Buttons: pill shaped, 44px minimum target ------------------------- */
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5
+      text-sm font-semibold transition-all duration-200 ease-soft
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface
+      disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97];
+  }
+
+  .btn-primary {
+    @apply bg-accent text-on-accent shadow-[0_8px_20px_-10px_var(--c-accent)] hover:bg-accent-strong;
+  }
+
+  .btn-secondary {
+    @apply bg-muted text-ink hover:bg-ink/10;
+  }
+
+  .btn-ghost {
+    @apply text-ink-soft hover:bg-muted hover:text-ink;
+  }
+
+  .btn-danger {
+    @apply bg-danger-soft text-danger hover:bg-danger hover:text-on-accent;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full text-ink-soft
+      transition-all duration-200 ease-soft hover:bg-muted hover:text-ink
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+  }
+
+  /* -- Forms: pill inputs ------------------------------------------------ */
+  .input {
+    @apply w-full rounded-full bg-muted px-4 py-2.5 text-sm text-ink
+      placeholder:text-ink-mute transition-all duration-200 ease-soft
+      focus:bg-elevated focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+
+  .input-area {
+    @apply w-full rounded-xl bg-muted px-4 py-3 text-sm text-ink
+      placeholder:text-ink-mute transition-all duration-200 ease-soft
+      focus:bg-elevated focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+
+  /* Icon + input combo used on the auth screens */
+  .auth-input-wrap {
+    @apply flex items-center gap-2.5 rounded-full bg-muted px-4 transition-all duration-200
+      ease-soft focus-within:bg-elevated focus-within:ring-2 focus-within:ring-accent;
+  }
+
+  .auth-input-wrap .input {
+    @apply min-w-0 flex-1 border-none bg-transparent px-0 shadow-none
+      focus:bg-transparent focus:ring-0 focus:ring-offset-0;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-semibold tracking-wide text-ink-soft;
+  }
+
+  /* -- Chips / pills ------------------------------------------------------ */
+  .chip {
+    @apply inline-flex min-h-11 items-center gap-1 rounded-full px-3.5 py-2 text-xs
+      font-semibold transition-colors duration-200;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-normal
+      transition-all duration-200 ease-soft;
+  }
+
+  /* -- Skeleton loaders (replace spinners) ------------------------------- */
+  .skeleton {
+    @apply animate-shimmer rounded-md bg-muted;
+  }
+
+  /* -- Utility ------------------------------------------------------------ */
+  .hairline {
+    @apply border-line;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+}
+
+/* ==========================================================================
+   3. SCROLLBARS
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-line);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-ink-mute);
+  background-clip: content-box;
+}
+
+/* ==========================================================================
+   4. MOTION PREFERENCES
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

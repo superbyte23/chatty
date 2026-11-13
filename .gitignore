@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native projects
+mobile/ios/
+mobile/android/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Logs and generated files
+*.log
+*.tsbuildinfo
+
+# OS and editor files
+.DS_Store
+Thumbs.db
